@@ -11,10 +11,6 @@ body {
   margin-bottom: .5em;
 }
 
-#tonebox {
-  margin: 0 0 2em 0;
-}
-
 .main_body {
   flex-grow: 1;
   margin: 5em 0 0 0;
