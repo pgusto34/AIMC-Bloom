@@ -30,7 +30,7 @@ body {
   background-color: rgba(218, 220, 224, 0.1);;
 }
 
-#messagebox:focus {
+#messagebox:focus, #tone_input:focus {
   outline: none;
 }
 
@@ -47,4 +47,8 @@ select {
 option {
   font-family: 'Open Sans', sans-serif;
   font-family: 'Ubuntu', sans-serif;
+}
+
+#tone_input {
+  padding: 0.5em;
 }
