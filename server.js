@@ -102,7 +102,7 @@ app.post('/server/autocomplete', async (req, res) => {
     }
 })
 
-app.use(express.static(path.join(__dirname,'public/transform')))
+app.use(express.static(path.join(__dirname, 'public')))
 console.log(path.join(__dirname, 'public'))
 const PORT = process.env.PORT || 1337
 app.listen(PORT, () => console.log(`Server has started on port: ${PORT}`))
