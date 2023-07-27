@@ -1,0 +1,54 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.label_block {
+  display:block;
+  margin-bottom: .5em;
+}
+
+#tonebox {
+  margin: 0 0 2em 0;
+}
+
+.main_body {
+  flex-grow: 1;
+  margin: 5em 0 0 0;
+}
+
+#messagebox, #out {
+  resize: none;
+  border-radius: .35em;
+  height: 25em;
+  width: 50em;
+  padding: 1em;
+  /* border: solid .01em rgba(19, 18, 18, 0.466); */
+  background-color: rgba(218, 220, 224, 0.1);;
+}
+
+#messagebox:focus {
+  outline: none;
+}
+
+#tmp_text {
+  color: rgb(129, 124, 124);
+  opacity: .75;
+}
+
+select {
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+option {
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+#autocomplete-view {
+  display:none
+}

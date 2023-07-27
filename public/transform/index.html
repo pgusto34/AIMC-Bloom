@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type=“image/x-icon” href="css/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+</head>
+
+<body>
+  <div class="main_body">
+    <h1> Select Tone </h1>
+    <select name="tonebox" id="tonebox" class="form-select">
+      <option value="formal">👔 Formal</option>
+      <option value="casual">👕 Causal</option>
+      <option value="optimistic">😄 Optimistic</option>
+      <option value="worried">😔 Worried</option>
+      <option value="friendly">🍻 Friendly</option>
+      <option value="curious">🕵 Curious</option>
+      <option value="assertive">🎯 Assertive</option>
+      <option value="encouraging">🤗 Encouraging</option>
+      <option value="surprised">😲 Surprised</option>
+      <option value="cooperative">🤝 Cooperative</option>
+    </select>
+    <lable for="tone_input" class="label_block"><strong>Custom Tone</strong></lable>
+    <input name="tone_input" id="tone_input" class="border mb-4"/>
+    <div name="textbox" id="messagebox" contenteditable="true" class="border">
+      <span id="tmp_text"></span>
+    </div>
+    <div id="transform-view">
+      </hr>
+      <div name="textbox" id="outputbox" contenteditable="false" class="border">
+        <span id="tmp_text"></span>
+      </div>
+      </hr>
+      <button id='submit-tone'>
+        Submit tone correction
+      </button>
+      <button id='reset'>
+        Reset text
+      </button>
+      <button id='autocomplete-view-btn'>
+        Autocomplete Tool
+      </button>
+    </div>
+    <div id='autocomplete-view'>
+      </hr>
+      <button id='transform-view-btn'>
+        Text Transform Tool
+      </button>
+    </div>
+</body>
+<script type="module" src="js/index.js"></script>
+<script>
+
+</script>
+</html>
