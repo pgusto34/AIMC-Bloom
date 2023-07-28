@@ -20,7 +20,7 @@ async function submitTone() {
   let data = new FormData()
   data.append("text", message.textContent)
   data.append("tone", tone.value)
-  let transformResponse = await fetch(TEXT_TRANSFORM_PATH, {method: "POST", body: data})
+  let transformResponse = await fetch(TEXT_TRANSFORM_PATH, { method: "POST", body: data })
   let transformText = await transformResponse.text()
   console.log(transformText)
   const desiredOutput = tone.value + ": " + transformText
@@ -55,18 +55,18 @@ function placeCaretAtEnd(el) {
   if (autocompleteView === undefined || autocompleteView === 'none') return
   el.focus();
   if (typeof window.getSelection != "undefined"
-          && typeof document.createRange != "undefined") {
-      var range = document.createRange();
-      range.selectNodeContents(el);
-      range.collapse(false);
-      var sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
+    && typeof document.createRange != "undefined") {
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    range.collapse(false);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
   } else if (typeof document.body.createTextRange != "undefined") {
-      var textRange = document.body.createTextRange();
-      textRange.moveToElementText(el);
-      textRange.collapse(false);
-      textRange.select();
+    var textRange = document.body.createTextRange();
+    textRange.moveToElementText(el);
+    textRange.collapse(false);
+    textRange.select();
   }
 }
 
@@ -81,11 +81,11 @@ function typeWriter(txt) {
   if (autocompleteView === undefined || autocompleteView === 'none') return;
   console.log("")
   message.contentEditable = false;
-  for (let i = 0; i < txt.length; i++ ) {
-    setTimeout( function () {
+  for (let i = 0; i < txt.length; i++) {
+    setTimeout(function () {
       let tmp_text = document.getElementById('tmp_text');
       tmp_text.textContent += txt.charAt(i);
-    },speed * i);
+    }, speed * i);
   }
   setTimeout(() => {
     message.contentEditable = true;
@@ -94,6 +94,8 @@ function typeWriter(txt) {
   }, 1000);
 }
 
+let autocompleteResponse = ''
+let autocompleteText = ''
 message.addEventListener('keydown', (e) => {
   console.log("Entering autocomplete")
   if (autocompleteView === undefined || autocompleteView === 'none') return
@@ -101,19 +103,29 @@ message.addEventListener('keydown', (e) => {
   if (e.key.length === 1) {
     clearTimeout(timeout);
     console.log('User is typing')
-    timeout = setTimeout(async function() {
+    timeout = setTimeout(async function () {
       //TODO: Call API and passed the vlaue and message as body.
       let data = new FormData()
       data.append("text", message.textContent)
       data.append("tone", tone.value)
 
-      let autocompleteResponse = await fetch(AUTOCOMPLETE_PATH, {method: "POST", body: data})
-      let autocompleteText = await autocompleteResponse.text()
+
+      if (autocompleteResponse == '') {
+        autocompleteResponse = await fetch(AUTOCOMPLETE_PATH, { method: "POST", body: data })
+        autocompleteText = await autocompleteResponse.text()
+        console.log(autocompleteResponse)
+        console.log(autocompleteText)
+        console.log("hi")
+      } else {
+        autocompleteResponse = ''
+        autocompleteText = ''
+      }
+
       console.log(autocompleteText)
       //TODO: typeWriter will be call once backend return a content.
       typeWriter(autocompleteText);
       console.log('User is not typing');
-      }, wait_time_ms)
+    }, wait_time_ms)
   } else if (e.key === 'Tab') {
     e.preventDefault();
     e.stopPropagation();
@@ -123,7 +135,7 @@ message.addEventListener('keydown', (e) => {
     message.innerHTML += `<span id="tmp_text"></span>`;
   } else if (e.key === "Backspace" || e.key === "Delete") {
     let tmp_text = document.getElementById('tmp_text');
-    if(!tmp_text) {
+    if (!tmp_text) {
       message.innerHTML += `<span id="tmp_text"></span>`;
     }
   }
