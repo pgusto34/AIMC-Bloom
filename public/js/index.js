@@ -1,4 +1,4 @@
-import { wait_time_ms, test_type, speed, TEXT_TRANSFORM_PATH, AUTOCOMPLETE_PATH } from "./constants.js";
+import { wait_time_ms, test_type, TEXT_TRANSFORM_PATH, AUTOCOMPLETE_PATH, speed_fast, speed_normal, speed_slow } from "./constants.js";
 let message = document.getElementById('messagebox');
 let tone = document.getElementById('tonebox');
 // const istyping = document.getElementById('istyping')
@@ -81,6 +81,14 @@ function typeWriter(txt) {
   if (autocompleteView === undefined || autocompleteView === 'none') return;
   console.log("")
   message.contentEditable = false;
+  let speed = 0;
+  if (txt.length > 150) {
+    speed = speed_fast;
+  } else if (txt.length > 75) {
+    speed = speed_normal;
+  } else {
+    speed = speed_slow;
+  };
   for (let i = 0; i < txt.length; i++ ) {
     setTimeout( function () {
       let tmp_text = document.getElementById('tmp_text');
@@ -91,8 +99,12 @@ function typeWriter(txt) {
     message.contentEditable = true;
     message.focus();
     placeCaretAtEnd(message);
-  }, 1000);
+    autocompleteText = '';
+    console.log("autocomplete text reset")
+  }, speed * txt.length);
 }
+
+let autocompleteText = '';
 
 message.addEventListener('keydown', (e) => {
   console.log("Entering autocomplete")
@@ -102,24 +114,30 @@ message.addEventListener('keydown', (e) => {
     clearTimeout(timeout);
     console.log('User is typing')
     timeout = setTimeout(async function() {
-      //TODO: Call API and passed the vlaue and message as body.
-      let data = new FormData()
-      data.append("text", message.textContent)
-      data.append("tone", tone.value)
+      let tmp_text = document.getElementById('tmp_text');
+      console.log(tmp_text.textContent)
+      if (autocompleteText.length === 0 && tmp_text.textContent.length === 0) {
+        //TODO: Call API and passed the vlaue and message as body.
+        let data = new FormData()
+        data.append("text", message.textContent)
+        data.append("tone", tone.value)
 
-      let autocompleteResponse = await fetch(AUTOCOMPLETE_PATH, {method: "POST", body: data})
-      let autocompleteText = await autocompleteResponse.text()
-      console.log(autocompleteText)
-      //TODO: typeWriter will be call once backend return a content.
-      typeWriter(autocompleteText);
+        let autocompleteResponse = await fetch(AUTOCOMPLETE_PATH, {method: "POST", body: data})
+        autocompleteText = await autocompleteResponse.text()
+        console.log(autocompleteText)
+        //TODO: typeWriter will be call once backend return a content.
+        typeWriter(autocompleteText);
+      }
       console.log('User is not typing');
+      console.log(autocompleteText.length);
       }, wait_time_ms)
   } else if (e.key === 'Tab') {
     e.preventDefault();
     e.stopPropagation();
-    let newText = tmp_text.textContent;
+    let tmp_text = document.getElementById('tmp_text');
+    let tmp = tmp_text.textContent;
     tmp_text.textContent = '';
-    message.textContent += newText;
+    message.textContent += tmp;
     message.innerHTML += `<span id="tmp_text"></span>`;
   } else if (e.key === "Backspace" || e.key === "Delete") {
     let tmp_text = document.getElementById('tmp_text');
