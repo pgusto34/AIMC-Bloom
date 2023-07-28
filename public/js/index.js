@@ -109,14 +109,9 @@ message.addEventListener('keydown', (e) => {
       data.append("text", message.textContent)
       data.append("tone", tone.value)
 
-
-      autocompleteResponse = await fetch(AUTOCOMPLETE_PATH, { method: "POST", body: data })
-      autocompleteText = await autocompleteResponse.text()
-      console.log(autocompleteResponse)
-      console.log(autocompleteText)
-      console.log("hi")
-
-      console.log(autocompleteText)
+      let autocompleteResponse = await fetch(AUTOCOMPLETE_PATH, { method: "POST", body: data })
+      let autocompleteText = await autocompleteResponse.text()
+      
       //TODO: typeWriter will be call once backend return a content.
       typeWriter(autocompleteText);
       console.log('User is not typing');
