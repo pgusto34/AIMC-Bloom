@@ -96,8 +96,6 @@ function typeWriter(txt) {
   }, speed * txt.length);
 }
 
-let autocompleteResponse = ''
-let autocompleteText = ''
 message.addEventListener('keydown', (e) => {
   console.log("Entering autocomplete")
   if (autocompleteView === undefined || autocompleteView === 'none') return
@@ -112,16 +110,11 @@ message.addEventListener('keydown', (e) => {
       data.append("tone", tone.value)
 
 
-      if (autocompleteResponse == '') {
-        autocompleteResponse = await fetch(AUTOCOMPLETE_PATH, { method: "POST", body: data })
-        autocompleteText = await autocompleteResponse.text()
-        console.log(autocompleteResponse)
-        console.log(autocompleteText)
-        console.log("hi")
-      } else {
-        autocompleteResponse = ''
-        autocompleteText = ''
-      }
+      autocompleteResponse = await fetch(AUTOCOMPLETE_PATH, { method: "POST", body: data })
+      autocompleteText = await autocompleteResponse.text()
+      console.log(autocompleteResponse)
+      console.log(autocompleteText)
+      console.log("hi")
 
       console.log(autocompleteText)
       //TODO: typeWriter will be call once backend return a content.
