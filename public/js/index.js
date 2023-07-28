@@ -1,4 +1,4 @@
-import { wait_time_ms, test_type, speed, TEXT_TRANSFORM_PATH, AUTOCOMPLETE_PATH } from "./constants.js";
+import { wait_time_ms, test_type, TEXT_TRANSFORM_PATH, AUTOCOMPLETE_PATH, speed_fast, speed_normal, speed_slow } from "./constants.js";
 let message = document.getElementById('messagebox');
 let tone = document.getElementById('tonebox');
 // const istyping = document.getElementById('istyping')
@@ -91,7 +91,9 @@ function typeWriter(txt) {
     message.contentEditable = true;
     message.focus();
     placeCaretAtEnd(message);
-  }, 1000);
+    autocompleteText = '';
+    console.log("autocomplete text reset")
+  }, speed * txt.length);
 }
 
 let autocompleteResponse = ''
@@ -129,9 +131,10 @@ message.addEventListener('keydown', (e) => {
   } else if (e.key === 'Tab') {
     e.preventDefault();
     e.stopPropagation();
-    let newText = tmp_text.textContent;
+    let tmp_text = document.getElementById('tmp_text');
+    let tmp = tmp_text.textContent;
     tmp_text.textContent = '';
-    message.textContent += newText;
+    message.textContent += tmp;
     message.innerHTML += `<span id="tmp_text"></span>`;
   } else if (e.key === "Backspace" || e.key === "Delete") {
     let tmp_text = document.getElementById('tmp_text');

@@ -27,7 +27,8 @@ body {
   width: 50em;
   padding: 1em;
   /* border: solid .01em rgba(19, 18, 18, 0.466); */
-  background-color: rgba(218, 220, 224, 0.1);;
+  background-color: rgba(218, 220, 224, 0.1);
+  overflow-y: scroll;
 }
 
 #messagebox:focus {
