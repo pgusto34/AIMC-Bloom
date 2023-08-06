@@ -23,7 +23,7 @@
     <h1> Select Tone </h1>
     <select name="tonebox" id="tonebox" class="form-select">
       <option value="formal">👔 Formal</option>
-      <option value="casual">👕 Causal</option>
+      <option value="casual">👕 Casual</option>
       <option value="optimistic">😄 Optimistic</option>
       <option value="worried">😔 Worried</option>
       <option value="friendly">🍻 Friendly</option>
@@ -35,28 +35,33 @@
     </select>
     <lable for="tone_input" class="label_block"><strong>Custom Tone</strong></lable>
     <input name="tone_input" id="tone_input" class="border mb-4"/>
-    <div name="textbox" id="messagebox" contenteditable="true" class="border">
+    <label for="textBox" class="label_block" >Input</label>
+    <div name="textBox" id="messagebox" contenteditable="plaintext-only" class="border">
       <span id="tmp_text"></span>
     </div>
     <div id="transform-view">
       </hr>
-      <div name="textbox" id="outputbox" contenteditable="false" class="border">
+      <label for="outputBox">Transform Result</label>
+      <div name="outputBox" id="outputbox" contenteditable="false" class="border">
         <span id="tmp_text"></span>
       </div>
       </hr>
-      <button id='submit-tone'>
+      <button class='btn btn-primary' id='submit-tone'>
         Submit tone correction
       </button>
-      <button id='reset'>
+      <button class='btn btn-secondary' id='reset'>
         Reset text
       </button>
-      <button id='autocomplete-view-btn'>
+      <button class='btn btn-dark' id='autocomplete-view-btn'>
         Autocomplete Tool
       </button>
     </div>
     <div id='autocomplete-view'>
       </hr>
-      <button id='transform-view-btn'>
+      <button class='btn btn-primary' id='redo-button'>
+        Redo
+      </button>
+      <button class='btn btn-dark' id='transform-view-btn'>
         Text Transform Tool
       </button>
     </div>

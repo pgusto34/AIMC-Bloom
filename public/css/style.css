@@ -4,6 +4,10 @@ body {
   align-items: center;
   font-family: 'Open Sans', sans-serif;
   font-family: 'Ubuntu', sans-serif;
+  background-color: rgba(229, 236, 250, 0.1);
+}
+#autocomplete-view {
+  display:none
 }
 
 .label_block {
@@ -20,12 +24,13 @@ body {
   margin: 5em 0 0 0;
 }
 
-#messagebox, #out {
+#messagebox, #outputbox {
   resize: none;
   border-radius: .35em;
   height: 25em;
   width: 50em;
   padding: 1em;
+  margin-bottom: 1em;
   /* border: solid .01em rgba(19, 18, 18, 0.466); */
   background-color: rgba(218, 220, 224, 0.1);
   overflow-y: scroll;
@@ -50,6 +55,3 @@ option {
   font-family: 'Ubuntu', sans-serif;
 }
 
-#autocomplete-view {
-  display:none
-}
