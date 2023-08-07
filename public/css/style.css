@@ -5,6 +5,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-family: 'Ubuntu', sans-serif;
   background-color: rgba(229, 236, 250, 0.1);
+  margin-bottom: 1em;
 }
 #autocomplete-view {
   display:none

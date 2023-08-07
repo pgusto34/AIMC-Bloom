@@ -40,9 +40,17 @@ function reset() {
   outputTimeoutArray.forEach((e) => {
     clearTimeout(e)
   })
+  autocompleteTimeoutArray.forEach((e) => {
+    clearTimeout(e)
+  })
   output.textContent = '';
   toneInput.value = '';
   toneBox.value = 'formal';
+  message.contentEditable = true;
+  message.focus();
+  placeCaretAtEnd(message);
+  autocompleteText = '';
+  resetButton.disabled = false;
 }
 
 // Code to switch views from https://stackoverflow.com/questions/25981198/how-to-hide-one-div-and-show-another-div-using-button-onclick
@@ -97,6 +105,7 @@ function typeWriter(txt) {
   if (autocompleteView === undefined || autocompleteView === 'none') return;
   console.log("")
   message.contentEditable = false;
+  redoButton.disabled = true;
   let speed = 0;
   if (txt.length > 150) {
     speed = speed_fast;
@@ -113,11 +122,13 @@ function typeWriter(txt) {
   }
   autocompleteTimeoutArray[txt.length] = setTimeout(() => {
     message.contentEditable = true;
+    redoButton.disabled = false;
     message.focus();
     placeCaretAtEnd(message);
     autocompleteText = '';
     console.log("autocomplete text reset")
   }, speed * txt.length);
+  return autocompleteTimeoutArray[txt.length];
 }
 
 let autocompleteText = '';
@@ -187,7 +198,7 @@ function autocomplete(e) {
         }, wait_time_ms)
     } else if (tmp_text.textContent === '' && message.textContent === '') {
       e.preventDefault();
-    } 
+    }
   } else {
     clearTimeout(timeout)
   }
@@ -197,16 +208,16 @@ function autocomplete(e) {
 
 redoButton.addEventListener('click', async (e) => {
   let tmp_text = document.getElementById('tmp_text');
-  autocompleteTimeoutArray.forEach((e) => {
-    clearTimeout(e)
-  })
-  message.contentEditable = true;
-  message.focus();
-  placeCaretAtEnd(message);
-  if (tmp_text.textContent !== '') {
+  redoButton.disabled = true;
+  if (tmp_text.textContent !== '' && autocompleteText.length === 0 ) {
     tmp_text.textContent = '';
+    autocompeteHelper();
+    console.log(redoButton.disabled)
+  } else {
+    setTimeout(() => {redoButton.disabled = false}, 5000);
+    redoButton.disabled = false;
+    console.log("redo was not call")
   }
-  autocompeteHelper();
 })
 
 async function autocompeteHelper() {
@@ -220,7 +231,7 @@ async function autocompeteHelper() {
     } else {
       data.append("tone", toneBox.value)
     }
-      let autocompleteResponse = await fetch(AUTOCOMPLETE_PATH, {method: "POST", body: data})
+    let autocompleteResponse = await fetch(AUTOCOMPLETE_PATH, {method: "POST", body: data})
     autocompleteText = await autocompleteResponse.text()
     console.log(autocompleteText)
     //TODO: typeWriter will be call once backend return a content.
